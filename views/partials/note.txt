@@ -1,0 +1,2 @@
+Like a lot of the applications you build, 
+there will be a lot of code that is reused. These are considered partials. 

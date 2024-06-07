@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../partials/head', {
+    title: "Home"
+  }); %>
+</head>
+
+<body class="container">
+  <header><%- include('../partials/header'); %></header>
+
+  <main>
+    <form class="container-fluid d-flex flex-column gap-2">
+      <h3 class="mt-4">Contact Form</h3>
+
+      <%- include('../partials/input', { label: "First Name", id: "firstname", placeholder: 'enterYourFirstName' }); %>
+
+      <%- include('../partials/input', { label: "Last Name", id: "lastName", placeholder: 'enterYourLastName' }); %>
+
+      <%- include('../partials/input', { label: "Email Address", id: "emailAddress", placeholder: 'enterYourEmail' }); %>
+
+      <div>
+        <label class="form-label">Query Type</label>
+        <div class="d-flex align-items-center gap-3">
+          <% radioCollection.forEach(function(radio) { %>
+          <%- include('../partials/radio', { label: radio.label, id: radio.id, name: "radioCollection" }); %>
+          <% }); %>
+        </div>
+
+      </div>
+
+      <div>
+        <label for="message">Message</label>
+        <textarea class="form-control" placeholder="Leave a message here" id="message"></textarea>
+      </div>
+
+    </form>
+  </main>
+
+  <footer><%- include('../partials/footer'); %></footer>
+
+  <%- include("../partials/script"); %>
+
+
+</body>
+
+
+
+
+</html>

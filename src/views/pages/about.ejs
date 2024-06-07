@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../partials/head', {
+    title: "About"
+  }); %>
+</head>
+
+<body class="container">
+  <header><%- include('../partials/header'); %></header>
+
+  <main>
+    <h3>About</h3>
+
+    <strong>Technologies Used</strong>
+    <div>
+      <strong>1. Express.js</strong>
+      <p>
+        Express.js is a fast, unopinionated, and minimalist web framework for Node.js. It provides a comprehensive set of features for web and mobile applications, making it the backbone of our server-side development. Key features of Express include:
+
+        Middleware: Use middleware to handle HTTP requests, manage sessions, and interact with databases.
+        Routing: Define routes to handle different URL paths, allowing for efficient and scalable navigation.
+        Flexibility: Easily integrate with various templating engines and other Node.js modules.
+
+      </p>
+    </div>
+
+    <div>
+      <strong>
+        2. EJS (Embedded JavaScript)
+
+
+      </strong>
+
+      <p>
+        EJS is a simple templating language that lets you generate HTML markup with plain JavaScript. It integrates seamlessly with Express, allowing us to:
+        Embed JavaScript: Write JavaScript code directly within HTML, providing dynamic content rendering.
+        Reusable Components: Create reusable components to maintain a clean and organized codebase.
+        Conditional Rendering: Render content conditionally based on logic, making our pages more interactive and user-friendly.
+      </p>
+    </div>
+
+    <strong class="d-block text-center">----This about page content is generated using chatgpt----</strong>
+  </main>
+
+  <footer><%- include('../partials/footer'); %></footer>
+
+  <%- include("../partials/script"); %>
+
+
+</body>
+
+
+
+
+</html>

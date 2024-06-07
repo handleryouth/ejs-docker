@@ -2,12 +2,14 @@ version: "3.4"
 
 services:
   ejscontactform:
-    image: ejscontactform
+    image: ejs-contact-form-view
+    container_name: ejs-view
     build:
       context: .
       dockerfile: ./Dockerfile
-    environment:
-      NODE_ENV: production
+    env_file:
+      - path: ./.env
+        required: true
     ports:
       - 8000:8000
     develop:
@@ -17,5 +19,20 @@ services:
         - path: ./src/
           target: /usr/src/app/src
           action: sync+restart
-        - path: ./docker-compose.yml
+        - path: ./Dockerfile
           action: rebuild
+
+  db:
+    image: mysql/mysql-server:8.0
+    restart: always
+    container_name: ejs-db
+    env_file:
+      - path: ./.env
+        required: true
+    volumes:
+      - ejs-volume:/var/lib/mysql
+    ports:
+      - "3308:3306"
+
+volumes:
+  ejs-volume:

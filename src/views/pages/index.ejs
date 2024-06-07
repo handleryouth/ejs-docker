@@ -1,51 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <%- include('../partials/head', { title: "Home" }); %>
+  </head>
 
-<head>
-  <%- include('../partials/head', {
-    title: "Home"
-  }); %>
-</head>
+  <body class="container">
+    <header><%- include('../partials/header'); %></header>
 
-<body class="container">
-  <header><%- include('../partials/header'); %></header>
+    <main>
+      <form
+        method="post"
+        id="contactForm"
+        class="container-fluid d-flex flex-column gap-2"
+      >
+        <h3 class="mt-4">Contact Form</h3>
 
-  <main>
-    <form class="container-fluid d-flex flex-column gap-2">
-      <h3 class="mt-4">Contact Form</h3>
+        <%- include('../partials/input', { label: "First Name",
+        name:"firstName", id: "firstname", placeholder: 'enterYourFirstName' });
+        %> <%- include('../partials/input', { label: "Last Name",
+        name:"lastName", id: "lastName", placeholder: 'enterYourLastName' }); %>
+        <%- include('../partials/input', { label: "Email Address",
+        name:"emailAddress", id: "emailAddress", placeholder: 'enterYourEmail'
+        }); %>
 
-      <%- include('../partials/input', { label: "First Name", id: "firstname", placeholder: 'enterYourFirstName' }); %>
-
-      <%- include('../partials/input', { label: "Last Name", id: "lastName", placeholder: 'enterYourLastName' }); %>
-
-      <%- include('../partials/input', { label: "Email Address", id: "emailAddress", placeholder: 'enterYourEmail' }); %>
-
-      <div>
-        <label class="form-label">Query Type</label>
-        <div class="d-flex align-items-center gap-3">
-          <% radioCollection.forEach(function(radio) { %>
-          <%- include('../partials/radio', { label: radio.label, id: radio.id, name: "radioCollection" }); %>
-          <% }); %>
+        <div>
+          <label class="form-label">Query Type</label>
+          <div class="d-flex align-items-center gap-3">
+            <% radioCollection.forEach(function(radio) { %> <%-
+            include('../partials/radio', { value: radio.value, label:
+            radio.label, id: radio.id, name: "radioCollection" }); %> <% }); %>
+          </div>
         </div>
 
-      </div>
+        <div>
+          <label for="message">Message</label>
+          <textarea
+            name="message"
+            class="form-control"
+            placeholder="Leave a message here"
+            id="message"
+          ></textarea>
+        </div>
 
-      <div>
-        <label for="message">Message</label>
-        <textarea class="form-control" placeholder="Leave a message here" id="message"></textarea>
-      </div>
+        <div>
+          <button type="submit" class="btn btn-primary">Submit</button>
 
-    </form>
-  </main>
+          <button type="reset" class="btn btn-danger">Reset</button>
+        </div>
+      </form>
+    </main>
 
-  <footer><%- include('../partials/footer'); %></footer>
+    <%- include('../partials/footer'); %> <%- include("../partials/script"); %>
+  </body>
 
-  <%- include("../partials/script"); %>
+  <script>
+    document
+      .getElementById("contactForm")
+      .addEventListener("submit", (event) => {
+        event.preventDefault();
 
+        console.log("form", event);
 
-</body>
+        const data = new FormData(event.target.form);
 
+        console.log("data", data);
 
-
-
+        fetch("/", {
+          method: "POST",
+          body: data,
+        }).then((res) => {
+          if (res.ok) {
+            alert("success");
+            document.getElementById("contactForm").reset();
+          } else {
+            alert("failed");
+          }
+        });
+      });
+  </script>
 </html>

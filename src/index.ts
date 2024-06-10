@@ -17,8 +17,8 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 app.use(cors());
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 export type ContactFormQueryType = "generalEnquiry" | "supportRequest";
 
@@ -36,17 +36,19 @@ app.post(
     const { emailAddress, firstName, lastName, message, radioCollection } =
       req.body;
     const id = generateId();
-    console.log(req.body);
+
+    console.log("request body: ", req.body);
 
     queryFromDB(
       `INSERT INTO users (id, firstName, lastName, email, queryType, message) VALUES ('${id}', '${firstName}', '${lastName}', '${emailAddress}', '${radioCollection}', '${message}');`,
       {
         onError(err) {
           console.log("err", err);
-          return res.status(500);
+          return res.status(500).send("failed");
         },
         onSuccess(value) {
-          return res.status(201);
+          console.log("success value here");
+          return res.status(201).send("ok");
         },
       }
     );

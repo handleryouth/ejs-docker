@@ -8,11 +8,7 @@
     <header><%- include('../partials/header'); %></header>
 
     <main>
-      <form
-        method="post"
-        id="contactForm"
-        class="container-fluid d-flex flex-column gap-2"
-      >
+      <form id="contactForm" class="container-fluid d-flex flex-column gap-2">
         <h3 class="mt-4">Contact Form</h3>
 
         <%- include('../partials/input', { label: "First Name",
@@ -59,15 +55,20 @@
       .addEventListener("submit", (event) => {
         event.preventDefault();
 
-        console.log("form", event);
+        const form = event.currentTarget;
 
-        const data = new FormData(event.target.form);
+        const formData = new FormData(form);
 
-        console.log("data", data);
+        const plainFormData = Object.fromEntries(formData.entries());
+        const formDataJsonString = JSON.stringify(plainFormData);
 
         fetch("/", {
           method: "POST",
-          body: data,
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: formDataJsonString,
         }).then((res) => {
           if (res.ok) {
             alert("success");
